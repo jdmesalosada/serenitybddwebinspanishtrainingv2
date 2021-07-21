@@ -1,6 +1,4 @@
-plugins {
-    id 'java'
-}
+defaultTasks 'clean', 'test', 'aggregate'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -38,6 +36,7 @@ ext {
     jsonPath = '4.3.2'
     lombokVersion = '1.18.16'
     javaFakerVersion = '1.0.2'
+    serenityCucumberVersion = '2.4.24'
 }
 
 dependencies {
@@ -49,6 +48,7 @@ dependencies {
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay-rest:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
             "junit:junit:${junitVersion}",
             "org.assertj:assertj-core:${assertJVersion}",
             "io.rest-assured:json-schema-validator:${jsonSchemaValidatorVersion}",
