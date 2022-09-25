@@ -3,14 +3,14 @@ defaultTasks 'clean', 'test', 'aggregate'
 group 'org.example'
 version '1.0-SNAPSHOT'
 repositories {
-    mavenLocal()
-    jcenter()
+    mavenCentral()
 }
 
 buildscript {
     repositories {
-        mavenLocal()
-        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath("net.serenity-bdd:serenity-gradle-plugin:2.2.8")
@@ -31,7 +31,7 @@ ext {
     serenityCoreVersion = '2.3.12'
     junitVersion = '4.13'
     assertJVersion = '3.8.0'
-    logbackVersion = '1.2.3'
+    logbackVersion = '1.2.10'
     jsonSchemaValidatorVersion = '3.0.7'
     jsonPath = '4.3.2'
     lombokVersion = '1.18.16'
@@ -40,9 +40,9 @@ ext {
 }
 
 dependencies {
-    compile "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 
-    compile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-junit:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
@@ -66,7 +66,7 @@ dependencies {
 
 test {
     testLogging.showStandardStreams = true
-    maxParallelForks=3
+    maxParallelForks = 3
     systemProperties System.getProperties()
 }
 
