@@ -6,3 +6,5 @@
 ./gradlew clean test
 ```
 
+In windows:
+gradlew clean test
