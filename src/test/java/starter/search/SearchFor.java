@@ -5,6 +5,11 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Clear;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.waits.WaitUntil;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.time.Duration;
 
 public class SearchFor {
     public static Performable term(String term) {
