@@ -1,7 +1,5 @@
 defaultTasks 'clean', 'test', 'aggregate'
 
-group 'org.example'
-version '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
 }
@@ -13,65 +11,54 @@ buildscript {
         }
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.2.8")
-        classpath "net.serenity-bdd:serenity-single-page-report:2.2.8"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.3.0"
     }
 }
+
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 ext {
     slf4jVersion = '1.7.7'
-    serenityCoreVersion = '2.3.12'
-    junitVersion = '4.13'
-    assertJVersion = '3.8.0'
+    serenityCoreVersion = '3.3.4'
+    serenityCucumberVersion = '3.3.4'
+    junitVersion = '4.13.1'
+    assertJVersion = '3.23.1'
     logbackVersion = '1.2.10'
-    jsonSchemaValidatorVersion = '3.0.7'
-    jsonPath = '4.3.2'
-    lombokVersion = '1.18.16'
-    javaFakerVersion = '1.0.2'
-    serenityCucumberVersion = '2.4.24'
 }
 
 dependencies {
     implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 
     testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-junit:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-cucumber:${serenityCucumberVersion}",
             "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-screenplay-rest:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
             "junit:junit:${junitVersion}",
-            "org.assertj:assertj-core:${assertJVersion}",
-            "io.rest-assured:json-schema-validator:${jsonSchemaValidatorVersion}",
-            "io.rest-assured:json-path:${jsonPath}",
-            "com.github.javafaker:javafaker:${javaFakerVersion}"
-
-    annotationProcessor "org.projectlombok:lombok"
-
-    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
-    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
-    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+            "org.junit.platform:junit-platform-launcher:1.8.2",
+            "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+            "org.junit.vintage:junit-vintage-engine:5.8.2",
+            "org.assertj:assertj-core:${assertJVersion}"
 }
 
 test {
     testLogging.showStandardStreams = true
-    maxParallelForks = 3
     systemProperties System.getProperties()
 }
 
 serenity {
-    reports = ["single-page-html"]
+    // Specify the root package of any JUnit acceptance tests to appear in the Serenity report
+    testRoot = "starter"
+    // Specify the root directory of any Cucumber feature files
+    requirementsDir = "src/test/resources/features"
+
 }
 
 gradle.startParameter.continueOnFailure = true
