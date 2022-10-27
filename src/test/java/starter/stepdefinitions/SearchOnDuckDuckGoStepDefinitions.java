@@ -6,15 +6,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
-import net.serenitybdd.screenplay.ensure.Ensure;
+import org.hamcrest.CoreMatchers;
 import starter.navigation.NavigateTo;
 import starter.search.SearchFor;
 import starter.search.SearchResult;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.*;
-import static org.hamcrest.core.Every.everyItem;
-import static starter.matchers.StringContainsIgnoringCase.containsIgnoringCase;
+import static org.hamcrest.CoreMatchers.everyItem;
 
 public class SearchOnDuckDuckGoStepDefinitions {
 
@@ -37,9 +36,8 @@ public class SearchOnDuckDuckGoStepDefinitions {
 
     @Then("all the result titles should contain the word {string}")
     public void all_the_result_titles_should_contain_the_word(String term) {
-        theActorInTheSpotlight().should(
-                seeThat("search result titles",
-                        SearchResult.titles(), everyItem(containsIgnoringCase(term)))
-        );
+           theActorInTheSpotlight()
+                   .should(seeThat(SearchResult.titles(), everyItem(CoreMatchers.containsStringIgnoringCase(term))));
+
     }
 }
